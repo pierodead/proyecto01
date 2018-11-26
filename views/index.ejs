@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>login2</title>
+	<link rel="stylesheet"  href="css/estilolog2.css">
+	</head>
+	<body>
+		
+	  <div class ="container">
+	  	
+	  	<img src="img/usuario.png">
+	  	<h1>MEMBER LOGIN</h1>
+	    <form>
+		    	<button id="botonlogin">Haz login con Google</button>  
+	  			<button id="botonlogout">Haz logout</button>  
+	  			<p id="datosuser"></p>
+	    	<br>
+	    	<div>
+	    		<!--<button id="loginfacebook">Facebook</button> -->
+	    	</div>           
+		</form>
+	   </div>
+	   
+			<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+			<script>
+				
+			  // Initialize Firebase
+			  var config = {
+			    apiKey: "AIzaSyAJSLPBC1ioP6HyNRTo68np8nMH9wVtwO4",
+			    authDomain: "employestaskaut.firebaseapp.com",
+			    databaseURL: "https://employestaskaut.firebaseio.com",
+			    projectId: "employestaskaut",
+			    storageBucket: "employestaskaut.appspot.com",
+			    messagingSenderId: "209432642212"
+			  };
+			  firebase.initializeApp(config);
+</script>
+<script>
+       // accedo al servicio de autenticación
+		var authService = firebase.auth();
+		// manejador de eventos para loguearse
+		document.getElementById('botonlogin').addEventListener('click', function() {
+		var provider = new firebase.auth.GoogleAuthProvider();
+		provider.addScope('email');
+		authService.signInWithPopup(provider)
+		        .then(function(result) {
+		            // logueado con éxito
+		            console.log('Hemos autenticado al usuario ', result.user);
+		        })
+		        .catch(function(error) {
+		            // Fallo de login
+		            console.log('Se ha encontrado un error:', error);
+		        });
+		})
+
+
+				//manejador de eventos para cerrar sesión (logout)
+				document.getElementById('botonlogout').addEventListener('click', function() {
+				  authService.signOut()
+				})
+
+
+		// manejador de eventos para los cambios del estado de autenticación
+		authService.onAuthStateChanged(function(user) {
+		  if (user) {
+		    console.log('AuthStateChanged', user)
+		    document.getElementById('datosuser').innerHTML = JSON.stringify(user);
+		    document.getElementById('botonlogin').style.display = 'none';
+		    document.getElementById('botonlogout').style.display = 'block';
+		  } else {
+		    document.getElementById('datosuser').innerHTML = 'Sin usuario logueado...'
+		    document.getElementById('botonlogin').style.display = 'block';
+		    document.getElementById('botonlogout').style.display = 'none';
+		  }
+});
+</script>
+
+</body>
+</html>

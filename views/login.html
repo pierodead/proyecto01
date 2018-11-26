@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Sample FirebaseUI App</title>
+    
+    
+<script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+
+<!-- <! - Agregue servicios adicionales que desee usar -> -->
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-functions.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAJSLPBC1ioP6HyNRTo68np8nMH9wVtwO4",
+    authDomain: "employestaskaut.firebaseapp.com",
+    databaseURL: "https://employestaskaut.firebaseio.com",
+    projectId: "employestaskaut",
+    storageBucket: "employestaskaut.appspot.com",
+    messagingSenderId: "209432642212"
+  };
+  firebase.initializeApp(config);
+
+</script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+    <script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: 'success.html',
+        signInOptions: [
+          // Deje las líneas tal como están para los proveedores que desea ofrecer a sus usuarios.
+          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+          
+          
+         
+        ],
+        // tosUrl y privacyPolicyUrl aceptan una cadena url o una devolución de llamada
+         // función.
+         // Condiciones del servicio url / callback.
+        tosUrl: '<your-tos-url>',
+
+     // Política de privacidad url / callback.
+        privacyPolicyUrl: function() {
+          window.location.assign('<your-privacy-policy-url>');
+        }
+      };
+
+     // Inicializar el Widget de FirebaseUI usando Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+     // El método de inicio esperará hasta que se cargue el DOM.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+  </head>
+
+  <body>
+    <!-- <! - El HTML circundante se deja intacto por FirebaseUI.
+          Su aplicación puede usar ese espacio para la marca, los controles y otras personalizaciones .-->
+   
+     <center>
+        <h1> LOGIN</h1>
+     
+      <div id="firebaseui-auth-container" ></div>
+     </center>
+     
+        
+                  
+  
+    
+    
+  </body>
+</html>
